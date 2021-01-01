@@ -1,6 +1,6 @@
 import argparse
-import os
-import sys
+#import os
+#import sys
 import zipfile
 from multiprocessing import Process
 
@@ -32,16 +32,7 @@ def main():
             p.start()
             p.join()
     finally:
-        '''
-        zfile.close()
-        '''
         dfile.close()
-'''
-if not os.path.isdir(input_path):
-    print('The path specified does not exist')
-    sys.exit()
 
-print('\n'.join(os.listdir(input_path)))
-'''
 if __name__ == '__main__':
     main()
