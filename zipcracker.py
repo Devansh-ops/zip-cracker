@@ -22,6 +22,7 @@ def main():
     args = parser.parse_args()
 
     try:
+        #zfile = zipfile.ZipFile(args.i)
         zfile = args.i
         dfile = open(args.d)
         process = []
