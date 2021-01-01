@@ -1,7 +1,16 @@
 import argparse
 import os
 import sys
-###############
+import zipfile
+from multiprocessing import Process
+
+def extractFile(zfile, password):
+    try:
+        zfile.extractall(pwd=password)
+        print('[+] Found Password:',password)
+    except:
+        pass
+
 def main():
     parser = argparse.ArgumentParser(prog="zipcracker",description="Crack password protected zip file")
 
@@ -10,10 +19,6 @@ def main():
     parser.add_argument('-d',metavar="dict_file", type=str, help="The path to dictionary file")
     args = parser.parse_args()
 
-    print(args)
-
-    input_path = args.i
-###############
 '''
 if not os.path.isdir(input_path):
     print('The path specified does not exist')
