@@ -6,8 +6,10 @@ from multiprocessing import Process
 
 def extractFile(zfile, password):
     try:
+        print("trying",password)
         zfile.extractall(pwd=password)
         print('[+] Found Password:',password)
+        exit(0)
     except:
         pass
 
@@ -19,6 +21,21 @@ def main():
     parser.add_argument('-d',metavar="dict_file", type=str, help="The path to dictionary file")
     args = parser.parse_args()
 
+    try:
+        zfile = args.i
+        dfile = open(args.d)
+        process = []
+
+        for line in dfile.readlines():
+            pw = line.strip("\n")
+            p = Process(target=extractFile, args=(zfile,pw))
+            p.start()
+            p.join()
+    finally:
+        '''
+        zfile.close()
+        '''
+        dfile.close()
 '''
 if not os.path.isdir(input_path):
     print('The path specified does not exist')
