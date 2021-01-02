@@ -33,6 +33,7 @@ def main():
         exit()
     except:
         print("There was some error")
+        print()
         parser.print_help()
         exit()
 
