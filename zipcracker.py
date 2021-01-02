@@ -8,7 +8,6 @@ def extractFile(zfile, password):
             zFile.setpassword(password_encoded)
             zFile.extractall()
             print ("[+] Password Found:", password)
-            zFile.close()
             exit(0)
         except SystemExit:
             exit()
@@ -29,10 +28,13 @@ def main():
         for line in dfile.readlines():
             pw = line.strip("\n")
             extractFile(zfile,pw)
-    except RuntimeError:
-        pass
-    finally:
-        dfile.close()
+        print("[-] Password not in wordlist. Try a different wordlist!!")
+    except SystemExit:
+        exit()
+    except:
+        print("There was some error")
+        parser.print_help()
+        exit()
 
 if __name__ == '__main__':
     main()
