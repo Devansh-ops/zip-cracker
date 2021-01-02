@@ -6,8 +6,11 @@ usage: zipcracker [-h] -i input_file -d dict_file
 Crack password protected zip file using dictionary attack
 
 optional arguments:
+
   -h, --help     show this help message and exit
+  
   -i input_file  The path to the zip file
+  
   -d dict_file   The path to dictionary file
   
  ## Needs / Modules required
