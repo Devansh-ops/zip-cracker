@@ -1,18 +1,19 @@
 import argparse
 import zipfile
+from tqdm import tqdm
 
 def extractFile(zfile, password):
     with zipfile.ZipFile(zfile) as zFile:
         try:
             password_encoded = bytes(password.encode('utf-8'))
             zFile.setpassword(password_encoded)
+            #zFile.testzip()
             zFile.extractall()
+            print()
             print ("[+] Password Found:", password)
             zFile.close()
             exit(0)
-        except SystemExit:
-            exit()
-        except:
+        except RuntimeError:
             pass
 
 def main():
@@ -22,17 +23,21 @@ def main():
     parser.add_argument('-d',metavar="dict_file", type=str, help="The path to dictionary file",required=True)
     args = parser.parse_args()
 
-    try:
-        zfile = args.i
-        dfile = open(args.d)
+    zfile = args.i
+    dfile = open(args.d)
 
-        for line in dfile.readlines():
+    n_words = len(list(open(args.d, "rb")))
+    print("Total passwords to test:", n_words)
+    for line in tqdm(dfile,total=n_words,unit="word"):
+        try:
             pw = line.strip("\n")
             extractFile(zfile,pw)
-    except RuntimeError:
-        pass
-    finally:
-        dfile.close()
 
+        except RuntimeError:
+            pass
+        '''
+        finally:
+            dfile.close()
+        '''
 if __name__ == '__main__':
     main()
